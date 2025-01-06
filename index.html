@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<!--
+    MobaXterm License Generator
+    Copyright (c) 2023 HouYuXi
+    https://github.com/houyuxi012/MobaXterm_License_Generator
+    
+    Author: HouYuXi
+    Email: houyuxi123@gmail.com
+    License: MIT
+-->
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="googlebot" content="index,follow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MobaXterm License Generator，MobaXterm许可证生成器，MobaXterm Crack。">
+    <meta name="keywords" content="MobaXterm激活、MobaXterm许可证生成器">
+    <meta name="author" content="houyuxi">
+    <link rel="shortcut icon" href="img/favicon.ico"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MobaXterm License Generator</title>
+
+    <!-- CSS 引用 -->
+    <link href="./css/pure-min.css" rel="stylesheet" />
+    <link href="./css/style.css" rel="stylesheet" />
+
+    <!-- JavaScript 引用 -->
+    <script src="./js/vue.min-2.6.12.js"></script>
+    <script src="./js/FileSaver.js"></script>
+    <script src="./js/jszip.js"></script>
+    <script src="./js/mobaXtermGenerater.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 添加主题切换按钮 -->
+        <div class="theme-switcher">
+            <button :class="{ active: currentTheme === 'dark' }" 
+                    @click="changeTheme('dark')" 
+                    title="Dark Theme">
+                🌙
+            </button>
+            <button :class="{ active: currentTheme === 'light' }" 
+                    @click="changeTheme('light')" 
+                    title="Light Theme">
+                ☀️
+            </button>
+        </div>
+
+        <div class="language-switcher">
+            <select v-model="currentLang" @change="changeLang" title="Select Language">
+                <option value="en">🇺🇸 English</option>
+                <option value="zh-CN">🇨🇳 简体中文</option>
+                <option value="zh-TW">🇨🇳 繁體中文</option>
+                <option value="ja">🇯🇵 日本語</option>
+            </select>
+        </div>
+    <div class="box-main">
+            <div class="content">
+                <h1>{{ i18n.title }}</h1>
+                <a href="help.html" class="help-button" :title="i18n.helpTooltip">
+                    <svg class="help-icon" viewBox="0 0 24 24" width="24" height="24">
+                        <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/>
+                    </svg>
+                </a>
+                <div class="form-group">
+                    <label for="license-type">{{ i18n.licenseType }}</label>
+                    <select name="license-type" id="license-type" v-model="licenseType">
+                        <option v-for="(val, key) in localizedLicenseTypes" :value="val">{{key}}</option>
+                                </select>
+                            </div>
+
+                <div class="form-group">
+                    <label for="user-name">{{ i18n.username }}</label>
+                    <my-input idattr="user-name"
+                             :validation="'^[a-zA-Z]+$'" 
+                             :valueattr="userName"
+                             :validationtips="i18n.usernameValidation" 
+                             :placeholderattr="i18n.usernamePlaceholder"
+                                    @set-data="setUserName">
+                                </my-input>
+                            </div>
+
+                <div class="form-group">
+                    <label for="version-name">{{ i18n.version }}</label>
+                    <my-input idattr="version-name"
+                             :validation="'^[1-9][0-9]*\\.?\\d{0,1}$'"
+                             :validationtips="i18n.versionValidation" 
+                             :valueattr="versionName"
+                             :placeholderattr="i18n.versionPlaceholder" 
+                             @set-data="setVersionName">
+                    </my-input>
+                            </div>
+
+                <div class="form-group">
+                    <label for="user-num">{{ i18n.users }}</label>
+                    <my-input idattr="user-num"
+                             :validation="'^[1-9]+\\d*$'" 
+                             :valueattr="userNum"
+                             :placeholderattr="i18n.usersPlaceholder" 
+                             :validationtips="i18n.usersValidation" 
+                             @set-data="setUserNum">
+                                </my-input>
+                            </div>
+
+                <button type="submit" 
+                        class="pure-button pure-button-primary"
+                        @click.stop="generate">
+                    {{ i18n.generateButton }}
+                </button>
+
+                <div class="share-buttons">
+                    <div class="share-icons">
+                        <a href="#" 
+                           class="share-icon" 
+                           :title="i18n.shareTooltip.share">
+                            <svg viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/>
+                            </svg>
+                        </a>
+                        <a :href="getShareUrl('weibo')" 
+                           class="share-icon" 
+                           target="_blank" 
+                           :title="i18n.shareTooltip.weibo">
+                            <svg viewBox="0 0 24 24"><path fill="currentColor" d="M10.098 20.323c-3.977.391-7.414-1.406-7.672-4.02-.259-2.609 2.759-5.047 6.74-5.441 3.979-.394 7.413 1.404 7.671 4.018.259 2.6-2.759 5.049-6.737 5.439l-.002.004zM9.05 17.219c-.384.616-1.208.884-1.829.602-.612-.279-.793-.991-.406-1.593.379-.595 1.176-.861 1.793-.601.622.263.82.972.442 1.592zm1.27-1.627c-.141.237-.449.353-.689.253-.236-.096-.313-.361-.177-.586.138-.227.436-.346.672-.24.239.09.315.36.18.601l.014-.028zm.176-2.719c-1.893-.493-4.033.45-4.857 2.118-.836 1.704-.026 3.591 1.886 4.21 1.983.64 4.318-.341 5.132-2.179.8-1.793-.201-3.642-2.161-4.149zm7.563-1.224c-.346-.105-.57-.18-.405-.615.375-.977.42-1.804 0-2.404-.781-1.112-2.915-1.053-5.364-.03 0 0-.766.331-.571-.271.376-1.217.315-2.224-.27-2.809-1.338-1.337-4.869.045-7.888 3.08C1.309 10.87 0 13.273 0 15.348c0 3.981 5.099 6.395 10.086 6.395 6.536 0 10.888-3.801 10.888-6.82 0-1.822-1.547-2.854-2.915-3.284v.01zm1.908-5.092c-.766-.856-1.908-1.187-2.96-.962-.436.09-.706.511-.616.932.09.42.511.691.932.602.511-.105 1.067.044 1.442.465.376.421.466.992.286 1.487-.135.436.105.902.54 1.036.436.135.902-.105 1.037-.54.391-1.186.135-2.524-.646-3.379l-.015.359zm2.418-2.195c-1.576-1.757-3.905-2.419-6.054-1.968-.496.104-.812.587-.706 1.083.104.496.586.811 1.083.707 1.532-.331 3.185.15 4.296 1.383.75.857 1.039 2.024.854 3.124-.091.497.241.977.738 1.068.497.091.977-.241 1.068-.738.346-1.608-.15-3.332-1.278-4.659h-.001z"/></svg>
+                        </a>
+                        <a :href="getShareUrl('twitter')" 
+                           class="share-icon" 
+                           target="_blank" 
+                           :title="i18n.shareTooltip.twitter">
+                            <svg viewBox="0 0 24 24"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                        </a>
+                        <a :href="getShareUrl('facebook')" 
+                           class="share-icon" 
+                           target="_blank" 
+                           :title="i18n.shareTooltip.facebook">
+                            <svg viewBox="0 0 24 24"><path fill="currentColor" d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                        </a>
+                        <a :href="getShareUrl('telegram')" 
+                           class="share-icon" 
+                           target="_blank" 
+                           :title="i18n.shareTooltip.telegram">
+                            <svg viewBox="0 0 24 24"><path fill="currentColor" d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+                        </a>
+                        </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p><a href="https://www.houyuxi.com" style="text-decoration: inherit; color: inherit;">{{ i18n.footer }}</a></p>
+        </footer>
+    </div>
+
+    <script>
+        // 添加国际化文本
+        const i18n = {
+            'en': {
+                title: 'MobaXterm License Generator',
+                licenseType: 'License Type',
+                helpTooltip: 'View Help Guide',
+                username: 'Username',
+                version: 'Version',
+                users: 'Users',
+                generateButton: 'Generate License',
+                footer: '© 2025 HouYuXi. All rights reserved.',
+                usernameValidation: 'Letters only',
+                versionValidation: 'One decimal place max',
+                usersValidation: 'Positive number only',
+                usernamePlaceholder: 'e.g. defaultUser',
+                versionPlaceholder: 'e.g. 24.00',
+                usersPlaceholder: 'e.g. 1',
+                licenseTypes: {
+                    'Professional': 'Professional',
+                    'Educational': 'Educational',
+                    'Personal': 'Personal'
+                },
+                usernameRequired: 'Please enter username',
+                versionRequired: 'Please enter version',
+                generateError: 'Error generating license',
+                shareTitle: 'Share with',
+                shareDesc: 'A simple MobaXterm license generator with dark theme and multilingual support.',
+                shareTooltip: {
+                    share: 'Share this page',
+                    wechat: 'Share to WeChat',
+                    weibo: 'Share to Weibo',
+                    twitter: 'Share to Twitter',
+                    facebook: 'Share to Facebook',
+                    telegram: 'Share to Telegram'
+                }
+            },
+            'zh-CN': {
+                title: 'MobaXterm 许可证生成器',
+                licenseType: '许可证类型',
+                helpTooltip: '查看使用帮助',
+                username: '用户名',
+                version: '版本号',
+                users: '用户数',
+                generateButton: '生成许可证',
+                footer: '© 2025 侯钰熙. 保留所有权利.',
+                usernameValidation: '仅支持字母',
+                versionValidation: '最多一位小数',
+                usersValidation: '必须为正整数',
+                usernamePlaceholder: '例如：defaultUser',
+                versionPlaceholder: '例如：24.00',
+                usersPlaceholder: '例如：1',
+                licenseTypes: {
+                    'Professional': '专业版',
+                    'Educational': '教育版',
+                    'Personal': '个人版'
+                },
+                usernameRequired: '请输入用户名',
+                versionRequired: '请输入版本号',
+                generateError: '生成许可证时出错',
+                shareTitle: '分享到',
+                shareDesc: '一个简单的 MobaXterm 许可证生成器，支持深色主题和多语言。',
+                shareTooltip: {
+                    share: '分享此页面',
+                    wechat: '分享到微信',
+                    weibo: '分享到微博',
+                    twitter: '分享到推特',
+                    facebook: '分享到脸书',
+                    telegram: '分享到电报'
+                }
+            },
+            'zh-TW': {
+                title: 'MobaXterm 授權生成器',
+                licenseType: '授權類型',
+                helpTooltip: '查看使用幫助',
+                username: '用戶名',
+                version: '版本號',
+                users: '用戶數',
+                generateButton: '生成授權',
+                footer: '© 2025 侯鈺熙. 保留所有權利.',
+                usernameValidation: '僅支持字母',
+                versionValidation: '最多一位小數',
+                usersValidation: '必須為正整數',
+                usernamePlaceholder: '例如：defaultUser',
+                versionPlaceholder: '例如：24.00',
+                usersPlaceholder: '例如：1',
+                licenseTypes: {
+                    'Professional': '專業版',
+                    'Educational': '教育版',
+                    'Personal': '個人版'
+                },
+                usernameRequired: '請輸入用戶名',
+                versionRequired: '請輸入版本號',
+                generateError: '生成授權時出錯',
+                shareTitle: '分享至',
+                shareDesc: '一個簡單的 MobaXterm 授權生成器，支持深色主題和多語言。',
+                shareTooltip: {
+                    wechat: '微信',
+                    weibo: '微博',
+                    twitter: 'Twitter',
+                    facebook: 'Facebook',
+                    telegram: 'Telegram'
+                }
+            },
+            'ja': {
+                title: 'MobaXterm ライセンス生成ツール',
+                licenseType: 'ライセンスタイプ',
+                helpTooltip: 'ヘルプを表示',
+                username: 'ユーザー名',
+                version: 'バージョン',
+                users: 'ユーザー数',
+                generateButton: 'ライセンスを生成',
+                footer: '© 2025 HouYuXi. All rights reserved.',
+                usernameValidation: '英字のみ使用可能',
+                versionValidation: '小数点以下1桁まで',
+                usersValidation: '正の整数のみ',
+                usernamePlaceholder: '例：defaultUser',
+                versionPlaceholder: '例：24.00',
+                usersPlaceholder: '例：1',
+                licenseTypes: {
+                    'Professional': 'プロフェッショナル版',
+                    'Educational': '教育版',
+                    'Personal': 'パーソナル版'
+                },
+                usernameRequired: 'ユーザー名を入力してください',
+                versionRequired: 'バージョンを入力してください',
+                generateError: 'ライセンス生成中にエラーが発生しました',
+                shareTitle: 'シェア',
+                shareDesc: 'ダークテーマと多言語をサポートするシンプルな MobaXterm ライセンス生成ツール。',
+                shareTooltip: {
+                    wechat: 'WeChat',
+                    weibo: 'Weibo',
+                    twitter: 'Twitter',
+                    facebook: 'Facebook',
+                    telegram: 'Telegram'
+                }
+            }
+        };
+
+        // 添加 my-input 组件定义
+        Vue.component('my-input', {
+            props: {
+                idattr: String,
+                validation: String,
+                validationtips: String,
+                valueattr: String,
+                placeholderattr: String
+            },
+            data() {
+                return {
+                    showTips: false,
+                    value: this.valueattr
+                }
+            },
+            template: `
+                <div class="my-input">
+                    <input type="text" 
+                           :id="idattr"
+                           :name="idattr"
+                           v-model="value"
+                           :placeholder="placeholderattr"
+                           @input="handleInput"
+                           @blur="handleBlur">
+                    <div class="my-input-tips-wrap" :class="{ hide: !showTips }">
+                        <div class="my-input-arrow"></div>
+                        <span>{{ validationtips }}</span>
+                    </div>
+                </div>
+            `,
+            methods: {
+                handleInput() {
+                    const reg = new RegExp(this.validation);
+                    if (!reg.test(this.value) && this.value !== '') {
+                        this.showTips = true;
+                    } else {
+                        this.showTips = false;
+                        this.$emit('set-data', this.value);
+                    }
+                },
+                handleBlur() {
+                    setTimeout(() => {
+                        this.showTips = false;
+                    }, 200);
+                }
+            },
+            watch: {
+                valueattr(newVal) {
+                    this.value = newVal;
+                }
+            }
+        });
+
+        new Vue({
+            el: '#app',
+            data: {
+                currentLang: 'en',
+                i18n: i18n.en,
+                LICENSE_TYPES: window.LicenseType,
+                    licenseType: 1,
+                userName: '',
+                versionName: '',
+                userNum: '',
+                currentTheme: 'dark'
+            },
+            computed: {
+                localizedLicenseTypes() {
+                    const result = {};
+                    for (let key in this.LICENSE_TYPES) {
+                        result[this.i18n.licenseTypes[key]] = this.LICENSE_TYPES[key];
+                    }
+                    return result;
+                }
+            },
+            methods: {
+                changeLang(event) {
+                    const lang = event.target.value;
+                    this.currentLang = lang;
+                    this.i18n = i18n[lang];
+                },
+                setUserName(val) {
+                    this.userName = val;
+                },
+                setVersionName(val) {
+                    this.versionName = val;
+                },
+                setUserNum(val) {
+                    this.userNum = val;
+                },
+                generate() {
+                    if (!this.userName) {
+                        alert(this.i18n.usernameRequired || 'Please enter username');
+                        return;
+                    }
+                    if (!this.versionName) {
+                        alert(this.i18n.versionRequired || 'Please enter version');
+                        return;
+                    }
+                    if (!this.userNum) {
+                        this.userNum = '1';
+                    }
+
+                    try {
+                        const license = window.generateLicense(
+                            this.userName,
+                            this.versionName,
+                            this.userNum,
+                            this.licenseType
+                        );
+
+                    let zip = new JSZip();
+                        zip.file("Pro.key", license);
+                    zip.generateAsync({ type: "blob" })
+                        .then(function (content) {
+                            saveAs(content, "Custom.mxtpro");
+                        });
+                    } catch (error) {
+                        alert(this.i18n.generateError || 'Error generating license');
+                        console.error('Error:', error);
+                    }
+                },
+                changeTheme(theme) {
+                    this.currentTheme = theme;
+                    document.documentElement.setAttribute('data-theme', theme);
+                    localStorage.setItem('theme', theme);
+                },
+                getShareUrl(platform) {
+                    const url = encodeURIComponent(window.location.href);
+                    const title = encodeURIComponent(document.title);
+                    const desc = encodeURIComponent(this.i18n.shareDesc || '');
+                    
+                    switch(platform) {
+                        case 'wechat':
+                            // 使用第三方服务生成二维码
+                            return `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${url}`;
+                        case 'weibo':
+                            return `http://service.weibo.com/share/share.php?url=${url}&title=${title}`;
+                        case 'twitter':
+                            return `https://twitter.com/intent/tweet?url=${url}&text=${title}`;
+                        case 'facebook':
+                            return `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+                        case 'telegram':
+                            return `https://t.me/share/url?url=${url}&text=${title}`;
+                        default:
+                            return '#';
+                    }
+                }
+            },
+            mounted() {
+                // 主题初始化
+                const savedTheme = localStorage.getItem('theme') || 'dark';
+                this.changeTheme(savedTheme);
+
+                // 语言初始化
+                const browserLang = navigator.language;
+                const supportedLangs = ['en', 'zh-CN', 'zh-TW', 'ja'];
+                let defaultLang = 'en';
+
+                if (browserLang.startsWith('zh')) {
+                    defaultLang = browserLang === 'zh-TW' ? 'zh-TW' : 'zh-CN';
+                } else if (browserLang.startsWith('ja')) {
+                    defaultLang = 'ja';
+                }
+
+                this.currentLang = defaultLang;
+                this.i18n = i18n[defaultLang];
+            }
+        });
+    </script>
+</body>
+
+</html>
