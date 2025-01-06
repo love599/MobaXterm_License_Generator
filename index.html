@@ -26,9 +26,9 @@
     <link href="./css/style.css" rel="stylesheet" />
 
     <!-- JavaScript 引用 -->
-    <script src="./js/vue.min-2.6.12.js"></script>
+    <script src="./js/vue.global.prod.js"></script>
     <script src="./js/FileSaver.js"></script>
-    <script src="./js/jszip.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jszip/3.10.1/jszip.js"></script>
     <script src="./js/mobaXtermGenerater.js"></script>
 </head>
 
@@ -154,6 +154,9 @@
     </div>
 
     <script>
+        // 添加这一行来解构 Vue 对象
+        const { createApp } = Vue;
+        
         // 添加国际化文本
         const i18n = {
             'en': {
@@ -292,8 +295,8 @@
             }
         };
 
-        // 添加 my-input 组件定义
-        Vue.component('my-input', {
+        // 修改组件定义方式
+        const myInput = {
             props: {
                 idattr: String,
                 validation: String,
@@ -343,19 +346,25 @@
                     this.value = newVal;
                 }
             }
-        });
+        };
 
-        new Vue({
-            el: '#app',
-            data: {
-                currentLang: 'en',
-                i18n: i18n.en,
-                LICENSE_TYPES: window.LicenseType,
+        // 修改创建应用的方式
+        const app = createApp({
+            // 禁用开发环境提示
+            compilerOptions: {
+                productionTip: false
+            },
+            data() {
+                return {
+                    currentLang: 'en',
+                    i18n: i18n.en,
+                    LICENSE_TYPES: window.LicenseType,
                     licenseType: 1,
-                userName: '',
-                versionName: '',
-                userNum: '',
-                currentTheme: 'dark'
+                    userName: '',
+                    versionName: '',
+                    userNum: '',
+                    currentTheme: 'dark'
+                }
             },
             computed: {
                 localizedLicenseTypes() {
@@ -402,12 +411,12 @@
                             this.licenseType
                         );
 
-                    let zip = new JSZip();
+                        let zip = new JSZip();
                         zip.file("Pro.key", license);
-                    zip.generateAsync({ type: "blob" })
-                        .then(function (content) {
-                            saveAs(content, "Custom.mxtpro");
-                        });
+                        zip.generateAsync({ type: "blob" })
+                            .then(function (content) {
+                                saveAs(content, "Custom.mxtpro");
+                            });
                     } catch (error) {
                         alert(this.i18n.generateError || 'Error generating license');
                         console.error('Error:', error);
@@ -425,7 +434,6 @@
                     
                     switch(platform) {
                         case 'wechat':
-                            // 使用第三方服务生成二维码
                             return `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${url}`;
                         case 'weibo':
                             return `http://service.weibo.com/share/share.php?url=${url}&title=${title}`;
@@ -441,11 +449,9 @@
                 }
             },
             mounted() {
-                // 主题初始化
                 const savedTheme = localStorage.getItem('theme') || 'dark';
                 this.changeTheme(savedTheme);
 
-                // 语言初始化
                 const browserLang = navigator.language;
                 const supportedLangs = ['en', 'zh-CN', 'zh-TW', 'ja'];
                 let defaultLang = 'en';
@@ -460,6 +466,12 @@
                 this.i18n = i18n[defaultLang];
             }
         });
+
+        // 注册组件
+        app.component('my-input', myInput);
+
+        // 挂载应用
+        app.mount('#app');
     </script>
 </body>
 

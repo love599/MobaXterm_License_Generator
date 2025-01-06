@@ -4,9 +4,11 @@
 
 [English](./README_EN.md) | 简体中文
 
-## demo
+## 演示环境（可以正常使用）
 
 https://houyuxi012.github.io/MobaXterm_License_Generator/
+
+https://mobaxterm.agent.houyuxi.com/
 
 ## 功能特点
 
@@ -127,7 +129,7 @@ mobaxterm-keygen/
 
 ## 技术栈
 
-- Vue.js 2.6.12 - 前端框架
+- Vue.js 3.4.21 - 前端框架
 - Pure.css - CSS 框架
 - JSZip - ZIP 文件处理
 - FileSaver.js - 文件下载

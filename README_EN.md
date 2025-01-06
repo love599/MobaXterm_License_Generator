@@ -3,6 +3,12 @@ A simple MobaXterm license generator that supports dark and light themes and Chi
 
 [简体中文](./README.md) | English
 
+## Demo(can be used normally)
+
+https://houyuxi012.github.io/MobaXterm_License_Generator/
+
+https://mobaxterm.agent.houyuxi.com/
+
 ## Features
 - 🎨 Modern dark and light themes
 - 🌏 Supports multi-language switching (Simplified Chinese, Traditional Chinese, English, Japanese)

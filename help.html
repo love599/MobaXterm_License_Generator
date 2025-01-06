@@ -132,8 +132,9 @@
         </footer>
     </div>
 
-    <script src="./js/vue.min-2.6.12.js"></script>
+    <script src="./js/vue.global.prod.js"></script>
     <script>
+        const { createApp } = Vue;
         // 帮助页面的国际化文本
         const i18n = {
             'en': {
@@ -267,12 +268,13 @@
 
         };
 
-        new Vue({
-            el: '#app',
-            data: {
-                currentLang: 'zh-CN',
-                i18n: i18n['zh-CN'],
-                currentTheme: 'dark'
+        const app = createApp({
+            data() {
+                return {
+                    currentLang: 'zh-CN',
+                    i18n: i18n['zh-CN'],
+                    currentTheme: 'dark'
+                }
             },
             methods: {
                 changeLang(event) {
@@ -297,6 +299,9 @@
                 }
             }
         });
+
+        // 挂载应用
+        app.mount('#app');
     </script>
 </body>
 
