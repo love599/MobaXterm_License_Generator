@@ -35,7 +35,7 @@ https://houyuxi012.github.io/MobaXterm_License_Generator/
 ### 1. 克隆项目到本地目录
 
 ```
-git clone https://github.com/houyuxi/MobaXterm_License_Generator.git
+git clone https://github.com/houyuxi012/MobaXterm_License_Generator.git
 ```
 
 ### 2. 启动本地服务器(以下方式任选其一)
@@ -100,12 +100,6 @@ Copyright (c) 2023 HouYuXi
 ## 贡献
 
 欢迎提交 Issue 和 Pull Request 来帮助改进这个项目。
-
-1. Fork 本项目
-2. 创建你的特性分支 (`git checkout -b feature/AmazingFeature`)
-3. 提交你的改动 (`git commit -m 'Add some AmazingFeature'`)
-4. 推送到分支 (`git push origin feature/AmazingFeature`)
-5. 打开一个 Pull Request
 
 ## 更新日志
 

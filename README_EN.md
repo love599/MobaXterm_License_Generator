@@ -27,7 +27,7 @@ A simple MobaXterm license generator that supports dark and light themes and Chi
 
 ### 1. Clone the project
 ```bash
-git clone https://github.com/houyuxi/MobaXterm_License_Generator.git
+git clone https://github.com/houyuxi012/MobaXterm_License_Generator.git
 ```
 
 ### 2. Install dependencies
@@ -86,9 +86,3 @@ This project is for learning and research purposes only, please do not use it fo
 ##Contribution
 
 Welcome to submit Issue and Pull Requests to help improve this project.
-
-1. Fork this project
-2. Create your feature branch (` git checkout - b feature/AmazingFeature `)
-3. Submit your changes (` git commit - m 'Add some Amazing Features' `)
-4. Push to Branch (` git push origin feature/AmatzingFeature `)
-5. Open a Pull Request
