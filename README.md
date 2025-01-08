@@ -110,10 +110,13 @@ Copyright (c) 2023 HouYuXi
 - 支持生成三种类型许可证
 - 支持多语言切换切换
 - 浅色/深色主题界面
-
+### v1.0.1 (2025-01-08)
+- 增加帮助页面
+- 支持捐赠页面
 
 ## 项目结构
 mobaxterm-keygen/
+├── img/ # 图片资源
 ├── css/
 │ ├── pure-min.css # Pure.css 框架
 │ └── style.css # 自定义样式
@@ -125,7 +128,9 @@ mobaxterm-keygen/
 ├── index.html # 主页面
 ├── README.md # 中文说明文档
 ├── README_EN.md # 英文说明文档
-└── LICENSE # 开源许可证
+├── LICENSE # 开源许可证
+├── help.html # 帮助页面
+└── donate.html # 捐赠页面
 
 ## 技术栈
 

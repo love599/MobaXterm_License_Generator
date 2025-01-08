@@ -130,6 +130,13 @@
         <footer class="footer">
             <p><a href="https://www.houyuxi.com" style="text-decoration: inherit; color: inherit;">{{ i18n.footer }}</a></p>
         </footer>
+        <!-- 添加捐赠按钮 -->
+        <a href="donate.html" class="donate-button" :title="i18n.donateTooltip">
+            <svg class="donate-icon" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4M11,17V16H9V14H13V13H10A1,1 0 0,1 9,12V9A1,1 0 0,1 10,8H11V7H13V8H15V10H11V11H14A1,1 0 0,1 15,12V15A1,1 0 0,1 14,16H13V17H11Z"/>
+            </svg>
+            {{ i18n.donateButton }}
+        </a>
     </div>
 
     <script src="./js/vue.global.prod.js"></script>
@@ -167,7 +174,9 @@
                 disclaimerContent: 'This platform is for testing and research purposes only. Using cracked software may bring security risks and legal consequences. Please support the development of official software by purchasing licensed versions.',
                 downloadText: 'Download official version:',
                 downloadTooltip: 'Download MobaXterm from official website',
-                footer: '© 2025 HouYuXi. All rights reserved.'
+                footer: '© 2025 HouYuXi. All rights reserved.',
+                donateButton: 'Donate',
+                donateTooltip: 'Donate to the developer'
             },
             'zh-CN': {
                 helpTitle: '使用帮助',
@@ -199,7 +208,9 @@
                 disclaimerContent: '本平台仅用于测试和研究使用，使用破解软件可能带来安全风险和法律后果。请用户支持正版软件的开发，购买官方许可版本。',
                 downloadText: '下载官方版本：',
                 downloadTooltip: '从官方网站下载 MobaXterm',
-                footer: '© 2025 侯钰熙. 保留所有权利.'
+                footer: '© 2025 侯钰熙. 保留所有权利.',
+                donateButton: '捐赠',
+                donateTooltip: '捐赠给开发者'
             },
             'zh-TW': {
                 helpTitle: ' 使用幫助',
@@ -231,7 +242,9 @@
                 disclaimerContent: ' 本平臺僅用於測試和研究使用，使用破解軟體可能帶來安全風險和法律後果。 請用戶支持正版軟體的開發，購買官方許可版本。',
                 downloadText: ' 下載官方版本：',
                 downloadTooltip: ' 從官方網站下載MobaXterm',
-                footer: ' ©  2025侯鈺熙. 保留所有權利.'
+                footer: ' ©  2025侯鈺熙. 保留所有權利.',
+                donateButton: '捐贈',
+                donateTooltip: '捐贈給開發者'
             },
             'ja': {
                 helpTitle: 'ヘルプを使用して',
@@ -263,7 +276,9 @@
                 disclaimerContent: 'このプラットフォームはテストと研究用にのみ使用されており、クラックソフトを使用すると安全リスクと法的結果をもたらす可能性があります。正規版ソフトウェアの開発をサポートし、公式ライセンスバージョンを購入してください。',
                 downloadText: '公式バージョンをダウンロードしてください：',
                 downloadTooltip: '公式サイトからMobaXterm をダウンロードします。',
-                footer: '© 2025侯钰熙すべてのエンタイトルメントを保持.'
+                footer: '© 2025侯钰熙すべてのエンタイトルメントを保持.',
+                donateButton: '寄付',
+                donateTooltip: '開発者に寄付する'
             },
 
         };

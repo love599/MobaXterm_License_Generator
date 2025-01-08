@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<!--
+    MobaXterm License Generator
+    Copyright (c) 2023 HouYuXi
+    https://github.com/houyuxi012/MobaXterm_License_Generator
+    
+    Author: HouYuXi
+    Email: houyuxi123@gmail.com
+    License: MIT
+-->
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="googlebot" content="donate,follow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MobaXterm License Generator，MobaXterm许可证生成器，MobaXterm Crack。">
+    <meta name="keywords" content="MobaXterm激活、MobaXterm许可证生成器">
+    <meta name="author" content="houyuxi">
+    <link rel="shortcut icon" href="img/favicon.ico"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>捐赠支持 - MobaXterm License Generator</title>
+
+    <!-- CSS 引用 -->
+    <link href="./css/pure-min.css" rel="stylesheet" />
+    <link href="./css/style.css" rel="stylesheet" />
+    <link href="./css/donate.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div id="app">
+        <!-- 主题切换按钮 -->
+        <div class="theme-switcher">
+            <button :class="{ active: currentTheme === 'dark' }" 
+                    @click="changeTheme('dark')" 
+                    title="Dark Theme">
+                🌙
+            </button>
+            <button :class="{ active: currentTheme === 'light' }" 
+                    @click="changeTheme('light')" 
+                    title="Light Theme">
+                ☀️
+            </button>
+        </div>
+
+        <!-- 语言切换器 -->
+        <div class="language-switcher">
+            <select v-model="currentLang" @change="changeLang" title="Select Language">
+                <option value="en">🇺🇸 English</option>
+                <option value="zh-CN">🇨🇳 简体中文</option>
+                <option value="zh-TW">🇨🇳 繁體中文</option>
+                <option value="ja">🇯🇵 日本語</option>
+            </select>
+        </div>
+
+        <div class="box-main">
+            <div class="content">
+                <a href="index.html" class="back-button">← {{ i18n.backToHome }}</a>
+                <h1>{{ i18n.donateTitle }}</h1>
+
+                <div class="donate-section">
+                    <h2>{{ i18n.whyDonate }}</h2>
+                    <p>{{ i18n.donateDesc }}</p>
+
+                    <div class="donate-methods">
+                        <div class="donate-method" v-if="showWechat">
+                            <div class="payment-header">
+                                <svg class="payment-logo" viewBox="0 0 24 24">
+                                    <path fill="#07C160" d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178A1.17 1.17 0 0 1 4.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178 1.17 1.17 0 0 1-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 0 1 .598.082l1.584.926a.272.272 0 0 0 .14.045c.133 0 .24-.11.24-.246 0-.06-.024-.12-.04-.177l-.325-1.233a.492.492 0 0 1 .177-.554c1.526-1.115 2.496-2.851 2.496-4.785 0-3.385-3.24-6.005-7.055-5.957zm-2.06 2.71c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.97-.982zm4.844 0c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.969-.982z"/>
+                                </svg>
+                                <h3>{{ i18n.wechatPay }}</h3>
+                            </div>
+                            <img :src="'./img/wechat-qr.jpg'" class="qr-code" :alt="i18n.wechatPay">
+                        </div>
+                        <div class="donate-method" v-if="showAlipay">
+                            <div class="payment-header">
+                                <svg class="payment-logo" viewBox="0 0 1024 1024">
+                                    <path fill="#1678FF" d="M157.54752 643.09248c-7.1424 35.5328 14.14656 120.54528 148.82816 120.54528 82.93888 0 162.7904-50.41152 227.76832-135.00928-92.52864-45.07136-169.61536-67.09248-255.6416-67.09248-74.87488 0-113.90464 46.16704-120.95488 81.55648z"/>
+                                    <path fill="#1678FF" d="M972.75392 682.13248H972.8V174.08c0-67.8656-55.0144-122.88-122.88-122.88H174.08c-67.8656 0-122.88 55.0144-122.88 122.88v675.84c0 67.8656 55.0144 122.88 122.88 122.88h675.84c67.8656 0 122.88-55.0144 122.88-122.88v-21.85728l-253.4656-111.28832c-39.2704-17.65888-76.47232-34.70336-106.07616-48.8448-80.73216 97.82784-165.32992 156.53888-292.78208 156.53888s-212.5568-78.52544-202.32704-174.6432c6.72768-63.03744 49.9968-166.1184 237.85472-148.46976 99.06688 9.30816 144.3584 27.79136 225.13664 54.46656 20.87424-38.33856 38.2464-80.50176 51.42528-125.3376H274.44736v-35.4816h177.21344V331.22816H235.50976V292.1984h216.10496V200.2688s1.93536-14.37696 17.83296-14.37696h88.60672V292.1984h230.38976v39.07584h-230.38976V394.9568h187.95008a725.6576 725.6576 0 0 1-76.34432 191.41632c54.59968 19.8144 303.09376 95.75936 303.09376 95.75936z"/>
+                                </svg>
+                                <h3>{{ i18n.aliPay }}</h3>
+                            </div>
+                            <img :src="'./img/alipay-qr.png'" class="qr-code" :alt="i18n.aliPay">
+                        </div>
+                        <div class="donate-method">
+                            <div class="payment-header">
+                                <svg class="payment-logo" viewBox="0 0 24 24">
+                                    <path fill="#00457C" d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81c1.01 1.15 1.304 2.42 1.012 4.287c-.023.143-.047.288-.077.437c-.34 1.886-.866 3.68-1.973 5.006c-.897 1.06-2.038 1.857-3.664 2.41c-1.422.484-3.044.672-4.85.672h-1.064c-.642 0-1.184.47-1.282 1.098l-.154.854l-.917 5.813c-.05.314-.358.574-.677.574H7.076z"/>
+                                    <path fill="#0079C1" d="M20.184 6.045c-.03.152-.058.305-.087.46c-1.28 6.525-5.663 8.787-11.245 8.787H7.079a.75.75 0 0 0-.74.634l-1.05 6.62l-.301 1.923c-.038.242.148.463.392.463h4.324a.65.65 0 0 0 .642-.544l.027-.137l.51-3.232l.033-.178a.65.65 0 0 1 .642-.544h.404c2.617 0 4.663-.563 5.63-2.193c.402-.678.627-1.484.627-2.43c0-.839-.217-1.516-.67-2.059c-.264-.316-.6-.573-.999-.775c-.088-.045-.18-.087-.273-.127c.923-.632 1.623-1.51 2.069-2.616c.367-.905.528-1.976.528-3.262c0-.735-.089-1.377-.262-1.933c-.028-.091-.06-.18-.094-.267c.723.31 1.307.762 1.744 1.359c.68.93.934 2.138.747 3.63z"/>
+                                </svg>
+                                <h3>PayPal</h3>
+                            </div>
+                            <img :src="'./img/paypal-qr.png'" class="qr-code" :alt="PayPal">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="donor-wall donate-section">
+                    <h2>{{ i18n.donorWall }}</h2>
+                    <div class="donor-list">
+                        <div v-for="donor in donors" 
+                             :key="donor.name" 
+                             class="donor-item">
+                            <div class="donor-header">
+                                <div class="donor-name">{{ donor.name }}</div>
+                                <div class="donor-amount">{{ donor.amount }}{{ i18n.currency }}</div>
+                            </div>
+                            <div class="donor-time">{{ donor.time }}</div>
+                            <div v-if="donor.message" class="donor-message">&nbsp;{{ donor.message }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p><a href="https://www.houyuxi.com" style="text-decoration: inherit; color: inherit;">{{ i18n.footer }}</a></p>
+        </footer>
+    </div>
+
+    <script src="https://unpkg.com/vue@3.4.21/dist/vue.global.prod.js"></script>
+    <script>
+        const { createApp } = Vue;
+        
+        const i18n = {
+            'en': {
+                donateTitle: 'Support the Project',
+                backToHome: 'Back to Generator',
+                whyDonate: 'Why Donate?',
+                donateDesc: 'Your donation helps maintain and improve this project. Every contribution, no matter how small, is greatly appreciated!',
+                wechatPay: 'WeChat Pay',
+                aliPay: 'Alipay',
+                currency: 'USD',
+                customAmount: 'Custom Amount',
+                donorWall: 'Donor Wall',
+                donorTime: 'Donation Time',
+                donorMessage: 'Message',
+                footer: '© 2025 HouYuXi. All rights reserved.'
+            },
+            'zh-CN': {
+                donateTitle: '支持项目',
+                backToHome: '返回生成器',
+                whyDonate: '为什么捐赠？',
+                donateDesc: '您的捐赠将帮助维护和改进这个项目。无论金额大小，我们都非常感谢您的支持！',
+                wechatPay: '微信支付',
+                aliPay: '支付宝',
+                currency: '￥',
+                customAmount: '自定义金额',
+                donorWall: '捐赠墙',
+                donorTime: '捐赠时间',
+                donorMessage: '留言',
+                footer: '© 2025 侯钰熙. 保留所有权利.'
+            },
+            'zh-TW': {
+                donateTitle: '支持項目',
+                backToHome: '返回生成器',
+                whyDonate: '為什麼捐贈？',
+                donateDesc: '您的捐贈將幫助維護和改進這個項目。無論金額大小，我們都非常感謝您的支持！',
+                wechatPay: '微信支付',
+                aliPay: '支付寶',
+                currency: 'NT$',
+                customAmount: '自定義金額',
+                donorWall: '捐贈牆',
+                donorTime: '捐贈時間',
+                donorMessage: '留言',
+                footer: '© 2025 侯鈺熙. 保留所有權利.'
+            },
+            'ja': {
+                donateTitle: 'プロジェクトを支援する',
+                backToHome: 'ジェネレータに戻る',
+                whyDonate: 'なぜ寄付するの？',
+                donateDesc: 'あなたの寄付は、このプロジェクトの維持と改善に役立ちます。金額の大小に関わらず、すべてのご支援に感謝いたします！',
+                wechatPay: 'WeChat Pay',
+                aliPay: 'Alipay',
+                currency: '¥',
+                customAmount: 'カスタム金額',
+                donorWall: '寄付者の壁',
+                donorTime: '寄付時間',
+                donorMessage: 'メッセージ',
+                footer: '© 2025 侯钰熙. 全著作権所有.'
+            }
+        };
+
+        const app = createApp({
+            data() {
+                return {
+                    currentLang: 'zh-CN',
+                    i18n: i18n['zh-CN'],
+                    currentTheme: 'dark',
+                    showWechat: true,
+                    showAlipay: true,
+                    donors: [
+                        { 
+                            name: "张三",
+                            amount: 50,
+                            time: "2024-03-08 14:30",
+                            message: "感谢开发者的贡献！继续加油！"
+                        },
+                        { 
+                            name: "李四",
+                            amount: 20,
+                            time: "2024-03-07 09:15",
+                            message: "非常实用的工具"
+                        },
+                        { 
+                            name: "王五",
+                            amount: 100,
+                            time: "2024-03-06 20:45",
+                            message: "支持一下，希望继续更新"
+                        },
+                        // 添加更多捐赠者...
+                    ]
+                }
+            },
+            methods: {
+                changeLang(event) {
+                    const lang = event.target.value;
+                    this.currentLang = lang;
+                    this.i18n = i18n[lang];
+                    
+                    // 根据语言显示/隐藏支付方式
+                    this.showWechat = ['zh-CN', 'zh-TW'].includes(lang);
+                    this.showAlipay = ['zh-CN', 'zh-TW'].includes(lang);
+                },
+                changeTheme(theme) {
+                    this.currentTheme = theme;
+                    document.documentElement.setAttribute('data-theme', theme);
+                    localStorage.setItem('theme', theme);
+                }
+            },
+            mounted() {
+                const savedTheme = localStorage.getItem('theme') || 'dark';
+                this.changeTheme(savedTheme);
+
+                const browserLang = navigator.language;
+                if (browserLang.startsWith('zh')) {
+                    this.currentLang = browserLang === 'zh-TW' ? 'zh-TW' : 'zh-CN';
+                    this.i18n = i18n[this.currentLang];
+                }
+                
+                // 根据语言初始化支付方式显示
+                this.showWechat = ['zh-CN', 'zh-TW'].includes(this.currentLang);
+                this.showAlipay = ['zh-CN', 'zh-TW'].includes(this.currentLang);
+            }
+        });
+
+        app.mount('#app');
+    </script>
+</body>
+
+</html> 
