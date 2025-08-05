@@ -34,6 +34,7 @@ https://mobaxterm.agent.houyuxi.com/
 
 ## 快速开始
 
+
 ### 1. 克隆项目到本地目录
 
 ```
@@ -63,7 +64,14 @@ http-server -p 8080
 ```bash
 php -S localhost:8080
 ```
+## Docker 一键部署（最简单）
 
+```bash
+#1.启动容器 (容器标签根据运行电脑选择arm或者x86)
+docker run -d -p 8080:80 houyuxi/mobakey:x86
+#2.访问系统
+http://localhost:8080
+```
 
 ## 功能使用说明
 
@@ -103,38 +111,3 @@ Copyright (c) 2023 HouYuXi
 
 欢迎提交 Issue 和 Pull Request 来帮助改进这个项目。
 
-## 更新日志
-
-### v1.0.0 (2023-06-17)
-- 初始版本发布
-- 支持生成三种类型许可证
-- 支持多语言切换切换
-- 浅色/深色主题界面
-### v1.0.1 (2025-01-08)
-- 增加帮助页面
-- 支持捐赠页面
-
-## 项目结构
-mobaxterm-keygen/
-├── img/ # 图片资源
-├── css/
-│ ├── pure-min.css # Pure.css 框架
-│ └── style.css # 自定义样式
-├── js/
-│ ├── FileSaver.js # 文件保存工具
-│ ├── jszip.js # ZIP 文件处理
-│ ├── vue.min-2.6.12.js # Vue.js 框架
-│ └── mobaXtermGenerater.js # 许可证生成核心代码
-├── index.html # 主页面
-├── README.md # 中文说明文档
-├── README_EN.md # 英文说明文档
-├── LICENSE # 开源许可证
-├── help.html # 帮助页面
-└── donate.html # 捐赠页面
-
-## 技术栈
-
-- Vue.js 3.4.21 - 前端框架
-- Pure.css - CSS 框架
-- JSZip - ZIP 文件处理
-- FileSaver.js - 文件下载
