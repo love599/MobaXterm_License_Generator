@@ -32,7 +32,7 @@ https://mobaxterm.agent.houyuxi.com/
 - PHP 内置服务器
 - Apache/Nginx 等
 
-## 快速开始
+## 源码构建快速开始
 
 
 ### 1. 克隆项目到本地目录
