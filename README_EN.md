@@ -56,6 +56,17 @@ http-server -p 8080
 php -S localhost:8080
 ```
 
+##Docker One-click Deployment (The Simplest）
+
+```bash
+#1.Start the container (select arm or x86 for the container label based on the running computer)
+docker run -d -p 8080:80 houyuxi/mobakey:x86
+#2.Access the system
+http://localhost:8080
+```
+
+
+
 ## Function Usage Instructions
 
 1. Select license type (Professional Edition/Education Edition/Personal Edition)
