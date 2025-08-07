@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <!--
-    MobaXterm License Generator
-    Copyright (c) 2023 HouYuXi
-    https://github.com/houyuxi012/MobaXterm_License_Generator
+    MobaXterm 注册码/激活码文件在线生成
+    Copyright (c) 2025 love599
+    https://github.com/love599/
     
-    Author: HouYuXi
-    Email: houyuxi123@gmail.com
+    Author: love599
+    Email: ljzlove599@gmail.com
     License: MIT
 -->
 <html lang="en">
@@ -14,12 +14,12 @@
     <meta charset="UTF-8">
     <meta name="googlebot" content="index,follow">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="MobaXterm License Generator，MobaXterm许可证生成器，MobaXterm Crack。">
+    <meta name="description" content="MobaXterm 注册码/激活码文件在线生成，MobaXterm许可证生成器，MobaXterm keygen。">
     <meta name="keywords" content="MobaXterm激活、MobaXterm许可证生成器">
-    <meta name="author" content="houyuxi">
+    <meta name="author" content="love599">
     <link rel="shortcut icon" href="img/favicon.ico"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MobaXterm License Generator</title>
+    <title>MobaXterm 注册码/激活码文件在线生成</title>
 
     <!-- CSS 引用 -->
     <link href="./css/pure-min.css" rel="stylesheet" />
@@ -30,6 +30,7 @@
     <script src="./js/FileSaver.js"></script>
     <script src="./js/jszip.js"></script>
     <script src="./js/mobaXtermGenerater.js"></script>
+    <script src="./js/api.js"></script>
 </head>
 
 <body>
@@ -74,7 +75,7 @@
                 <div class="form-group">
                     <label for="user-name">{{ i18n.username }}</label>
                     <my-input idattr="user-name"
-                             :validation="'^[a-zA-Z]+$'" 
+                             :validation="'^[a-zA-Z0-9]+$'" 
                              :valueattr="userName"
                              :validationtips="i18n.usernameValidation" 
                              :placeholderattr="i18n.usernamePlaceholder"
@@ -149,7 +150,7 @@
         </div>
 
         <footer class="footer">
-            <p><a href="https://www.houyuxi.com" style="text-decoration: inherit; color: inherit;">{{ i18n.footer }}</a></p>
+            <p><a href="http://www.love599.net" style="text-decoration: inherit; color: inherit;">{{ i18n.footer }}</a></p>
         </footer>
         <!-- 添加捐赠按钮 -->
         <a href="donate.html" class="donate-button" :title="i18n.donateTooltip">
@@ -174,7 +175,7 @@
                 version: 'Version',
                 users: 'Users',
                 generateButton: 'Generate License',
-                footer: '© 2025 HouYuXi. All rights reserved.',
+                footer: '© 2025 love599. All rights reserved.',
                 usernameValidation: 'Letters only',
                 versionValidation: 'One decimal place max',
                 usersValidation: 'Positive number only',
@@ -198,17 +199,18 @@
                     twitter: 'Share to Twitter',
                     facebook: 'Share to Facebook',
                     telegram: 'Share to Telegram'
-                }
+                },
+                adminTooltip: 'Admin Panel'
             },
             'zh-CN': {
-                title: 'MobaXterm 许可证生成器',
-                licenseType: '许可证类型',
+                title: 'MobaXterm 注册码生成器',
+                licenseType: '注册码类型',
                 helpTooltip: '查看使用帮助',
                 username: '用户名',
                 version: '版本号',
                 users: '用户数',
-                generateButton: '生成许可证',
-                footer: '© 2025 侯钰熙. 保留所有权利.',
+                generateButton: '生成注册码',
+                footer: '© 2025 爱我久久. 保留所有权利.',
                 usernameValidation: '仅支持字母',
                 versionValidation: '最多一位小数',
                 usersValidation: '必须为正整数',
@@ -232,7 +234,8 @@
                     twitter: '分享到推特',
                     facebook: '分享到脸书',
                     telegram: '分享到电报'
-                }
+                },
+                adminTooltip: '管理面板'
             },
             'zh-TW': {
                 title: 'MobaXterm 授權生成器',
@@ -242,7 +245,7 @@
                 version: '版本號',
                 users: '用戶數',
                 generateButton: '生成授權',
-                footer: '© 2025 侯鈺熙. 保留所有權利.',
+                footer: '© 2025 爱我久久. 保留所有權利.',
                 usernameValidation: '僅支持字母',
                 versionValidation: '最多一位小數',
                 usersValidation: '必須為正整數',
@@ -265,7 +268,8 @@
                     twitter: 'Twitter',
                     facebook: 'Facebook',
                     telegram: 'Telegram'
-                }
+                },
+                adminTooltip: '管理面板'
             },
             'ja': {
                 title: 'MobaXterm ライセンス生成ツール',
@@ -275,7 +279,7 @@
                 version: 'バージョン',
                 users: 'ユーザー数',
                 generateButton: 'ライセンスを生成',
-                footer: '© 2025 HouYuXi. All rights reserved.',
+                footer: '© 2025 love599. All rights reserved.',
                 usernameValidation: '英字のみ使用可能',
                 versionValidation: '小数点以下1桁まで',
                 usersValidation: '正の整数のみ',
@@ -298,7 +302,8 @@
                     twitter: 'Twitter',
                     facebook: 'Facebook',
                     telegram: 'Telegram'
-                }
+                },
+                adminTooltip: '管理パネル'
             }
         };
 
@@ -397,7 +402,7 @@
                 setUserNum(val) {
                     this.userNum = val;
                 },
-                generate() {
+                async generate() {
                     if (!this.userName) {
                         alert(this.i18n.usernameRequired || 'Please enter username');
                         return;
@@ -420,8 +425,36 @@
 
                         let zip = new JSZip();
                         zip.file("Pro.key", license);
+                        
+                        // 记录生成操作
+                        const generateRecord = {
+                            type: 'generate',
+                            details: `用户名: ${this.userName}, 版本: ${this.versionName}, 用户数: ${this.userNum}`,
+                            time: new Date().toISOString()
+                        };
+                        
+                        try {
+                            await window.mockAPI.addRecord(generateRecord);
+                        } catch (error) {
+                            console.error('Error recording generation:', error);
+                        }
+
+                        // 记录下载操作
                         zip.generateAsync({ type: "blob" })
-                            .then(function (content) {
+                            .then(async function (content) {
+                                // 记录下载操作
+                                const downloadRecord = {
+                                    type: 'download',
+                                    details: `文件名: Custom.mxtpro`,
+                                    time: new Date().toISOString()
+                                };
+                                
+                                try {
+                                    await window.mockAPI.addRecord(downloadRecord);
+                                } catch (error) {
+                                    console.error('Error recording download:', error);
+                                }
+
                                 saveAs(content, "Custom.mxtpro");
                             });
                     } catch (error) {
